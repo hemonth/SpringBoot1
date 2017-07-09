@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,8 +47,14 @@ public class PersonController {
     
     @GET
     @RequestMapping("/person/get")
-    public List<Person> get(){
+    public List<Person> get() throws InterruptedException{
         return personDao.get();
+    }
+    
+    @GET
+    @RequestMapping("/person/find/{findUser}")
+    public List<Person> find(@PathVariable("findUser") String findUser){
+        return personDao.find(findUser);
     }
     
 }
