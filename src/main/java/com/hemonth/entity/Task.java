@@ -6,6 +6,7 @@
 package com.hemonth.entity;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.ForeignKey;
@@ -22,8 +23,14 @@ public class Task extends AbstractEntity{
     protected Date dateCreated;
     
     protected Date endDate;
+
+    public Task(String name, Date dateCreated, Date endDate) {
+        this.name = name;
+        this.dateCreated = dateCreated;
+        this.endDate = endDate;
+    }
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @ForeignKey(name = "FK_Project_Tasks")
     protected Project project;
 

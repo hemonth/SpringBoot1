@@ -38,6 +38,13 @@ public class Project extends AbstractEntity{
         this.tasks = tasks;
     }
     
+    public void addTask(Task task) {
+         if (task == null) {
+            return;
+        }
+        getTasks().add(task);
+        task.setProject(this);
+    }
     
-    
+       
 }
