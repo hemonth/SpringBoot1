@@ -8,23 +8,31 @@ package com.hemonth.controller;
 import com.hemonth.dao.ProjectDao;
 import com.hemonth.entity.Project;
 import com.hemonth.entity.Task;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import javax.ws.rs.GET;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.ws.rs.GET;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 /**
- *
  * @author Hemonth.Mandava
  */
 @RestController
 public class HelloController {
-    
+
+    private Logger logger = Logger.getLogger(HelloController.class.getName());
+
     @Autowired
     ProjectDao projectDao;
+
+    @Autowired
+    SimpMessagingTemplate messaging;
 
     @RequestMapping("/hello")
     public String hello() {
@@ -32,7 +40,7 @@ public class HelloController {
         Project project1 = new Project();
         project1.setId(new Long(1));
         project1.setName("project 2");
-        for(Task task: tasks){
+        for (Task task : tasks) {
             project1.addTask(new Task("task 1", new Date(), new Date()));
         }
         projectDao.save(project1);
@@ -44,6 +52,7 @@ public class HelloController {
     public String goodMorning() {
         //Gson gson = new Gson();
         //return gson.toJson("Good Morning");
+        messaging.convertAndSend("/topic/alarms", Collections.singletonMap("Wishing Hemonth: ", "Good Morning"));
         return "Good Morning";
     }
 }

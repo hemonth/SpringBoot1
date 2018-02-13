@@ -46,5 +46,11 @@ public class PersonDao {
         query.setParameter("name", user);
         return query.getResultList();
     }
+
+    public void savePeople(List<Person> people){
+        for(Person p: people){
+            em.persist(p);
+        }
+    }
     
 }
