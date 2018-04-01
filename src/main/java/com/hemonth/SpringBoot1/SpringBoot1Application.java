@@ -9,7 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.logging.Logger;
 
 @SpringBootApplication
 @EnableJpaRepositories
+@EnableScheduling
+@ComponentScan(basePackages = "com.hemonth")
 public class SpringBoot1Application extends SpringBootServletInitializer {
 
     private Logger logger = Logger.getLogger(SpringBootApplication.class.getName());
